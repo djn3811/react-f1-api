@@ -37,20 +37,22 @@ function ChooseRace(match) {
         setRaceName(results.MRData.RaceTable.Races[0].raceName);
         console.log('raceName: ' + raceName)
         var finish = [];
+        // var position = 1;
         results.MRData.RaceTable.Races[0].Results.forEach(driver => {
             const first = driver.Driver.givenName
             const last = driver.Driver.familyName
             const fullName = {first, last}
             finish.push(fullName)
+            // position++;
         });
         setResults(finish);
         console.log('Results set...')
         console.log(results)
         console.log(results.MRData.RaceTable.Races[0].raceName)
  
-        setResults(results);
+        // setResults(results);
 
-        return results;
+        // return results;
 
     }; 
     
@@ -68,12 +70,11 @@ function ChooseRace(match) {
             <h3>{trackName} </h3>
             <h3>{city}, {country}</h3>
             {/* {results.map(name =>(
-                {name}
+                {name.position}
             ))} */}
 
         </div>
     )
-
 
 }
 

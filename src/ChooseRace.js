@@ -26,24 +26,30 @@ function ChooseRace(match) {
 
     var [url, setUrl] = useState('/choose');
 
-    var setYearValue = (val) => {
+    var setYearValue = () => {
         setYear((document.getElementById('y')||{}).value);
         updateUrl();
+        // setState({year: (document.getElementById('y')||{}).value}, () =>{
+        //     updateUrl();
+        // })
     };
     var setRaceNumValue = () => {
         setRaceNum((document.getElementById('n')||{}).value);
         updateUrl();
     }; 
-    var updateUrl = () =>
+    const updateUrl = () =>
     {
-        setUrl('raceresults/'+year+'/'+raceNum);
+        var nextUrl = 'raceresults/' + year + '/' + raceNum;
+        if(url != nextUrl){
+            setUrl('raceresults/'+year+'/'+raceNum);
+        }
     }
 
 
     var printUrl = () =>{
-        // console.log('Url:' + url);
-        // console.log('Year: ' + year);
-        // console.log('Race: ' + raceNum)
+        console.log('Year: ' + year);
+        console.log('Race: ' + raceNum)
+        console.log('Url:' + url);
     }
 
 
@@ -67,12 +73,12 @@ function ChooseRace(match) {
           </select>
           <br />
           {/* <button type='button' onClick='selectRace(year.value, num.value)'>Submit</button> */}
-          <Button component={Link} to={url} onClick={printUrl()}>
+          <Button component={Link} to={url} onClick={updateUrl()}>
             Submit
           </Button>
           {/* <Link style={navStyle} to={url} ></Link> */}
       </form>
-
+ 
     );
 
 
