@@ -1,21 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 
 
 
-function Races(match) {
+function Drivers(match) {
 
+    
+    const [time, setTime] = useState([]);
     const [finishingOrder, setFinishingOrder] = useState([]);
     const [raceName, setRaceName] = useState([]);
     const [season, setSeason] = useState([]);
     const [trackName, setTrackName] = useState([]);
     const [country, setCountry] = useState([]);
     const [city, setCity] = useState([]);
-
-
-    const [year, setYear] = useState([]);
-    const [raceNum, setRaceNum] = useState([]);
 
 
     
@@ -25,14 +21,12 @@ function Races(match) {
 
 
     const fetchResults = async () => {
-        const data = await fetch('https://ergast.com/api/f1/'+match.match.params.year+'/'+match.match.params.gpNum+'/results.json');
+        const data = await fetch('http://ergast.com/api/f1/drivers.json');
 
-
-        setYear(match.match.params.year);
-        setRaceNum(match.match.params.gpNum);
   
          
         const results = await data.json();
+
 
         setCity(results.MRData.RaceTable.Races[0].Circuit.Location.locality)
         setCountry(results.MRData.RaceTable.Races[0].Circuit.Location.country)
@@ -58,9 +52,7 @@ function Races(match) {
                 else{
                     timeBehind = driver.status;
                 }
-                const constructor = driver.Constructor.name;
-                const points = driver.points;
-                var info = {position, first, last, timeBehind, constructor, points};
+                var info = {position, first, last, timeBehind};
                 finish.push(info)
                 num++;
             }
@@ -71,7 +63,6 @@ function Races(match) {
         console.log(results)
 
     }; 
-    const qualifyingUrl = 'qualifyingresults/' + year + '/' + raceNum;
     
 
     
@@ -81,18 +72,12 @@ function Races(match) {
             <h3>{trackName} </h3>
             <h3>{city}, {country}</h3>
 
-            <Button component={Link} to={qualifyingUrl}>
-            Switch to Qualifying
-            </Button>
-
-            <table class='center'>
+            <table>
                 <tbody>
                     <tr>
                         <th>Position</th>
                         <th>Driver</th>
                         <th>Time</th>
-                        <th>Constructor</th>
-                        <th>Points</th>
                     </tr>
                     {finishingOrder.map(name => (
                         <tr>
@@ -109,12 +94,6 @@ function Races(match) {
                                     <li key={name.position}>{name.timeBehind}</li>
                                 </ul>
                             </td>
-                            <td>
-                                {name.constructor}
-                            </td>
-                            <td>
-                                {name.points}
-                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -127,4 +106,4 @@ function Races(match) {
 
 }
 
-export default Races;
+export default Drivers;

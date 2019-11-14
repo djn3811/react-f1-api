@@ -38,3 +38,25 @@ nav{
   align-items: center;
   list-style: none;
 }
+
+ul{
+  list-style-type: none;
+}
+
+table, th, tr, td {
+  border: 1px solid black;
+}
+
+td {
+  text-align: left;
+}
+
+table th {
+  color: white;
+  background-color: black;
+}
+
+table.center {
+  margin-left:auto; 
+  margin-right:auto;
+}

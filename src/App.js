@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Display from './Display';
 import ChooseRace from './ChooseRace';
 import Nav from './Nav';
+import QualifyingResults from './QualifyingResults'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/raceresults/:year/:gpNum' exact component={Races} />
           <Route path='/display' component={Display} />
           <Route path='/choose' exact component={ChooseRace} />
+          <Route path='/qualifyingresults/:year/:gpNum' exact component={QualifyingResults} />
         </Switch>
       </div>
     </Router>
