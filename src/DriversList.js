@@ -2,108 +2,85 @@ import React, {useState, useEffect} from 'react';
 
 
 
-function Drivers(match) {
+function DriversList(match) {
 
     
-    const [time, setTime] = useState([]);
-    const [finishingOrder, setFinishingOrder] = useState([]);
-    const [raceName, setRaceName] = useState([]);
+    const [list, setList] = useState([]);
     const [season, setSeason] = useState([]);
-    const [trackName, setTrackName] = useState([]);
-    const [country, setCountry] = useState([]);
-    const [city, setCity] = useState([]);
-
 
     
     useEffect(() => {
         fetchResults();
     }, []);
 
-
+    var pages = [];
     const fetchResults = async () => {
-        const data = await fetch('http://ergast.com/api/f1/drivers.json');
+
+        // const data = await fetch('http://ergast.com/api/f1/drivers?limit=30&offset='+page+'.json');
+        // const data = await fetch('http://ergast.com/api/f1/drivers.json');
+        const data = await fetch('http://ergast.com/api/f1/'+match.match.params.year+'/drivers.json');
+        // const data = await fetch('http://ergast.com/api/f1/2010/drivers.json');
+
 
   
          
         const results = await data.json();
+        console.log(results);
 
-
-        setCity(results.MRData.RaceTable.Races[0].Circuit.Location.locality)
-        setCountry(results.MRData.RaceTable.Races[0].Circuit.Location.country)
-        setTrackName(results.MRData.RaceTable.Races[0].Circuit.circuitName);
-        setSeason(results.MRData.RaceTable.season);
-        setRaceName(results.MRData.RaceTable.Races[0].raceName);
-        // console.log('raceName: ' + raceName)
-        var finish = [];
-        // var position = 1;
-        var temp = results.MRData.RaceTable.Races[0].Results;
-        // console.log('temp: ' + JSON.stringify(temp));
+        var temp = results.MRData.DriverTable.Drivers;
+        var finish  = [];
         var num = 0;
         temp.forEach(driver => {
             if (num < temp.length) {
-                const first = driver.Driver.givenName;
-                const last = driver.Driver.familyName;
-                var position = num+1;
+                const first = driver.givenName;
+                const last = driver.familyName;
+                const dob = driver.dateOfBirth;
+                const nationality = driver.nationality;
                 // console.log('time: ' + JSON.stringify(driver.Time.time));
-                var timeBehind = '';
-                if(driver.Time){
-                    timeBehind = driver.Time.time;
-                }
-                else{
-                    timeBehind = driver.status;
-                }
-                var info = {position, first, last, timeBehind};
+                var info = {first, last, dob, nationality};
                 finish.push(info)
                 num++;
             }
             
         });
-        setFinishingOrder(finish)
+        setList(finish)
         // console.log('Results set...')
-        console.log(results)
+
 
     }; 
-    
+    const setPage = (pageNum) =>{
+        console.log(pageNum);
+    }
 
     
     return (
         <div>
-            <h1>{season} {raceName} Results</h1>
-            <h3>{trackName} </h3>
-            <h3>{city}, {country}</h3>
-
+            <h1>{season} Driver Standings</h1>
             <table>
                 <tbody>
                     <tr>
-                        <th>Position</th>
                         <th>Driver</th>
-                        <th>Time</th>
+                        <th>Nationality</th>
+                        <th>Date of Birth</th>
                     </tr>
-                    {finishingOrder.map(name => (
+                    {list.map(name => (
                         <tr>
                             <td>
-                                {name.position}
+                                {name.first} {name.last}
                             </td>
                             <td>
-                                <ul>
-                                    <li key={name.position}>{name.first} {name.last}</li>
-                                </ul>
+                                {name.nationality}
                             </td>
                             <td>
-                                <ul>
-                                    <li key={name.position}>{name.timeBehind}</li>
-                                </ul>
+                                {name.dob}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-
-
         </div>
     )
 
 }
 
-export default Drivers;
+export default DriversList;

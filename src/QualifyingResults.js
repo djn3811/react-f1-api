@@ -67,13 +67,13 @@ function ChooseRace(match) {
             }
             
         });
-        console.log('temp: ' + temp);
         setFinishingOrder(finish)
         // console.log('Results set...')
         console.log(results)
 
     };
-    const raceUrl = 'raceresults/' + year + '/' + raceNum; 
+    const raceUrl2 = 'raceresults/' + year + '/' + raceNum;
+    const raceUrl = 'race'; 
 
 
     

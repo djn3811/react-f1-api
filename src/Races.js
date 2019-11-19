@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -16,6 +17,11 @@ function Races(match) {
 
     const [year, setYear] = useState([]);
     const [raceNum, setRaceNum] = useState([]);
+    var nextYear = 0;
+    var previousYear = 0;
+    var nextRaceNum = 0;
+    var previousRaceNum = 0;
+    
 
 
     
@@ -30,6 +36,13 @@ function Races(match) {
 
         setYear(match.match.params.year);
         setRaceNum(match.match.params.gpNum);
+        // console.log(parseInt(match.match.params.year)+1)
+        // nextYear = parseInt(match.match.params.year) + 1 + '';
+        // previousYear = parseInt(match.match.params.year) - 1 + '';
+        // nextRaceNum = (parseInt(match.match.params.gpNum) + 1).toString;
+        // previousRaceNum = (parseInt(match.match.params.gpNum) - 1).toString;
+        // console.log(previousYear)
+
   
          
         const results = await data.json();
@@ -71,7 +84,12 @@ function Races(match) {
         console.log(results)
 
     }; 
-    const qualifyingUrl = 'qualifyingresults/' + year + '/' + raceNum;
+    const qualifyingUrl2 = 'qualifyingresults/' + year + '/' + raceNum;
+    const qualifyingUrl = 'qualifying';
+    const previousRaceUrl = '/' + previousYear + '/' + previousRaceNum + '/race';
+    const nextRaceUrl = '/' + nextYear + '/' + nextRaceNum + '/race';
+
+
     
 
     
@@ -82,8 +100,8 @@ function Races(match) {
             <h3>{city}, {country}</h3>
 
             <Button component={Link} to={qualifyingUrl}>
-            Switch to Qualifying
-            </Button>
+                Switch to Qualifying
+                </Button>
 
             <table class='center'>
                 <tbody>
