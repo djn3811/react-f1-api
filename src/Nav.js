@@ -14,6 +14,9 @@ function Nav() {
               <Link style={navStyle} to='/choose' >
                   <li>Races</li>
               </Link>
+              <Link style={navStyle} to='/choosedriver' >
+                  <li>Drivers</li>
+              </Link>
               <Link style={navStyle} to='/choosestandings' >
                   <li>Standings</li>
               </Link>

@@ -10,6 +10,9 @@ import DriversList from './DriversList';
 import DriverStandings from './DriverStandings';
 import ConstructorStandings from './ConstructorStandings';
 import ChooseStandings from './ChooseStandings';
+import DriverResults from './DriverProfile';
+import DriverInfo from './DriverInfo';
+import ChooseDriver from './ChooseDriver';
 
 
 function App() {
@@ -26,13 +29,14 @@ function App() {
           <Route path='/:year/:gpNum/race' exact component={Races} />
           <Route path='/display' component={Display} />
           <Route path='/choose' exact component={ChooseRace} />
-          {/* <Route path='/qualifyingresults/:year/:gpNum' exact component={QualifyingResults} /> */}
           <Route path='/:year/:gpNum/qualifying' exact component={QualifyingResults} />
           <Route path='/yearlydrivers/:year' exact component={DriversList} />
-          {/* <Route path='/driver/:name' exact component={Driver} /> */}
           <Route path='/:year/driverstandings' exact component={DriverStandings}/>
           <Route path='/:year/constructorstandings' exact component={ConstructorStandings}/>
           <Route path='/choosestandings' exact component={ChooseStandings} />
+          <Route path='/driverprofile/:driverId/:year' exact component={DriverResults} />
+          <Route path='/driver/:driverId' exact component={DriverInfo} />
+          <Route path='/choosedriver' exact component={ChooseDriver} />
 
         </Switch>
       </div>
@@ -44,6 +48,7 @@ function App() {
 const Home = () => (
   <div>
     <h1>Home Page</h1>
+    <h5>This site uses the Egrast Developer API from https://ergast.com/mrd/</h5>
   </div>
 );
 

@@ -73,7 +73,7 @@ function DriversStandings(match) {
             <h1>{season} Driver Standings</h1>
             <br/>
             <Button component={Link} to={constructorsUrl}>
-            Switch to Driver's
+            Switch to Constructor's
             </Button>
             <br/>
             <table class='center'>
